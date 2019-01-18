@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>FridgeBridge</title>
+    <!-- CSS  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="./spinner.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+</head>
+
+<body>
+
+    <!-- Query -->
+    <h3>Input food?</h3>
+    <br>
+    <input type="text" id="search">
+    <a class="waves-effect waves-light btn">Submit</a>
+    <div id="loadingDiv"></div>
+    <div id="results"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- FireBase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCBdrmu0Zh7QJ4dl4IV9HCZNCH4y7QP9Lw",
+            authDomain: "test-43928.firebaseapp.com",
+            databaseURL: "https://test-43928.firebaseio.com",
+            projectId: "test-43928",
+            storageBucket: "test-43928.appspot.com",
+            messagingSenderId: "668914477501"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        //loading
+        var $loading = $('#loadingDiv').hide();
+        $(document)
+            .ajaxStart(function () {
+                $loading.show();
+            })
+            .ajaxStop(function () {
+                $loading.hide();
+            });
+        var database = firebase.database();
+        $("#submit").on("click", function () {
+            var input = $("#search").val();
+            var queryURL = "https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=JrdeqppR6h6iZFOFYmbUU6ECER95OYP0wl73znKp&fg=0900&nutrients=269&max=1500";
+            console.log(input);
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
+                console.log(response.report.groups[0].description);
+                var foods = response.report.foods;
+                for (var i = 0; i < foods.length; i++) {
+                    if (foods[i].name.includes(input)) {
+                        console.log(foods[i].name);
+                        console.log(foods[i].nutrients[0]);
+                        database.ref().set({
+                            food: foods[i].name,
+                            sugar: foods[i].nutrients[0]
+                        });
+
+                    }
+                }
+
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>
