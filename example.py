@@ -3,6 +3,8 @@ import time
 import sys
 from hx711 import HX711
 
+
+
 def cleanAndExit():
     print "Cleaning..."
     GPIO.cleanup()
