@@ -34,11 +34,12 @@ function displayJSON(url, req, res) {
         if (err) {
             throw err;
         }
-        myHTML = data;
+        myHTML = JSON.parse(data);
+        console.log(myHTML);
         // Configure the response to return a status code of 200 (meaning everything went OK), and to be an HTML document
         res.writeHead(200, { "Content-Type": "text/html" });
 
         // End the response by sending the client the myHTML string (which gets rendered as an HTML document thanks to the code above)
-        res.end(myHTML);
+        res.end(myHTML.responses[1].labelAnnotations[1].description);
     });
 }
