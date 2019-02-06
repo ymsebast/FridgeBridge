@@ -47,7 +47,7 @@ function displayJSON(url, req, res) {
         myHTML = JSON.parse(data);
         var database = firebase.database();
         console.log(myHTML);
-        database.ref().set({
+        database.ref().push({
             food: myHTML.responses[0].labelAnnotations[1].description,
         });
         // Configure the response to return a status code of 200 (meaning everything went OK), and to be an HTML document
