@@ -1,0 +1,38 @@
+{
+    "responses": [
+        {
+            "labelAnnotations": [
+                {
+                    "score": 0.9299386,
+                    "description": "Yellow",
+                    "mid": "/m/088fh",
+                    "topicality": 0.9299386
+                },
+                {
+                    "score": 0.91400635,
+                    "description": "Banana",
+                    "mid": "/m/09qck",
+                    "topicality": 0.91400635
+                },
+                {
+                    "score": 0.8602932,
+                    "description": "Banana family",
+                    "mid": "/m/013xk6",
+                    "topicality": 0.8602932
+                },
+                {
+                    "score": 0.6616108,
+                    "description": "Plant",
+                    "mid": "/m/05s2s",
+                    "topicality": 0.6616108
+                },
+                {
+                    "score": 0.60272735,
+                    "description": "Ceramic",
+                    "mid": "/m/01x5q",
+                    "topicality": 0.60272735
+                }
+            ]
+        }
+    ]
+}

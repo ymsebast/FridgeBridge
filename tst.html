@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div id="update"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- FireBase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyCBdrmu0Zh7QJ4dl4IV9HCZNCH4y7QP9Lw",
+            authDomain: "test-43928.firebaseapp.com",
+            databaseURL: "https://test-43928.firebaseio.com",
+            projectId: "test-43928",
+            storageBucket: "test-43928.appspot.com",
+            messagingSenderId: "668914477501"
+        };
+        firebase.initializeApp(config);
+    </script>
+    <script>
+        var database = firebase.database();
+        $.getJSON('./results.json', function (data) {
+            console.log(data);
+            var output = '<ul>';
+            var tempfood = "";
+            var tempscore = 0; //store largest score
+            $.each(data.responses[0].labelAnnotations, function (key, val) {
+                output += '<li>' + val.description + " " + val.score + '</li>';
+                //pick which json to store in firebase
+                if (val.score > tempscore) {
+                    tempscore = val.score;
+                    tempfood = val.description;
+                }
+            });
+            database.ref().set({
+                    food: tempfood,
+                });
+            output += '</ul>';
+            $('#update').html(output);
+        });
+
+    </script>
+</body>
+
+</html>
