@@ -1,7 +1,6 @@
 #include "hx711.h"
 
-int main()
-{
+int main(){
   int err = 0;
   int priority = 10;
   err = setPriority(priority);
@@ -34,7 +33,7 @@ int main()
   
   raw_data = getRawDataMean(&hx, samples);
   //printf("Raw data: %d \n", raw_data);
-  data_file = fopen("measured_weight.txt", "w");
+  data_file = fopen("weight.txt", "w");
   fprintf(data_file, "%d", raw_data);
   fclose(data_file);
   //sleep(5);
