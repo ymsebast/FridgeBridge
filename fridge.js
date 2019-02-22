@@ -71,10 +71,13 @@ fs.readFile("food.txt", "utf8", function (error, data) {
                         // Send data to firebase
                         database.ref("Food").push({
                             food: obj.report.foods[j].name,
-                            kcal: obj.report.foods[j].nutrients[0].gm + " " + obj.report.foods[j].nutrients[0].unit + " /100g",
-                            fats: obj.report.foods[j].nutrients[2].gm + obj.report.foods[j].nutrients[2].unit + " " + obj.report.foods[j].nutrients[2].nutrient + " /100g",
-                            carbs: obj.report.foods[j].nutrients[3].gm + obj.report.foods[j].nutrients[3].unit + " " + obj.report.foods[j].nutrients[3].nutrient + " /100g",
-                            protein: obj.report.foods[j].nutrients[1].gm + obj.report.foods[j].nutrients[1].unit + " " + obj.report.foods[j].nutrients[1].nutrient + " /100g"
+                            kcal: obj.report.foods[j].nutrients[0].gm + " " + obj.report.foods[j].nutrients[0].unit ,
+                            fats: obj.report.foods[j].nutrients[2].gm + obj.report.foods[j].nutrients[2].unit ,
+                            carbs: obj.report.foods[j].nutrients[3].gm + obj.report.foods[j].nutrients[3].unit ,
+                            protein: obj.report.foods[j].nutrients[1].gm + obj.report.foods[j].nutrients[1].unit
+                            // fats: obj.report.foods[j].nutrients[2].gm + obj.report.foods[j].nutrients[2].unit + " " + obj.report.foods[j].nutrients[2].nutrient + " /100g",
+                            // carbs: obj.report.foods[j].nutrients[3].gm + obj.report.foods[j].nutrients[3].unit + " " + obj.report.foods[j].nutrients[3].nutrient + " /100g",
+                            // protein: obj.report.foods[j].nutrients[1].gm + obj.report.foods[j].nutrients[1].unit + " " + obj.report.foods[j].nutrients[1].nutrient + " /100g"
 
                         });
                         // database.ref("Food").remove();
