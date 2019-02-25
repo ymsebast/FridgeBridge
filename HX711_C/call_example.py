@@ -1,6 +1,6 @@
 import os
 
-offset = 35717
+offset = 226700
 gain = 0.00245
 os.system("sudo ./example")
 
