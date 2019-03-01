@@ -19,19 +19,20 @@ import java.util.ArrayList;
 
 class NewFood {
     String food;
-    int gm;
-    String unit;
-    String value;
+    String carbs;
+    String kcal;
+    String fats;
+    String protein;
 
     public NewFood() {
-
     }
 
-    public NewFood(String food, int gm, String unit, String value) {
+    public NewFood(String food, String carbs, String kcal, String fats, String protein) {
         this.food = food;
-        this.gm = gm;
-        this.unit = unit;
-        this.value = value;
+        this.carbs = carbs;
+        this.kcal = kcal;
+        this.fats = fats;
+        this.protein = protein;
     }
 
     public String getFood() {
@@ -42,37 +43,46 @@ class NewFood {
         this.food = food;
     }
 
-    public int getGm() {
-        return gm;
+    public String getCarbs() {
+        return carbs;
     }
 
-    public void setGm(Integer gm) {
-        this.gm = gm;
+    public void setCarbs(String carbs) {
+        this.carbs = carbs;
     }
 
-    public String getUnit() {
-        return unit;
+    public String getKcal() {
+        return kcal;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setKcal(String kcal) {
+        this.kcal = kcal;
     }
 
-    public String getValue() {
-        return value;
+    public String getFats() {
+        return fats;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setFats(String fats) {
+        this.fats = fats;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public void setProtein(String protein) {
+        this.protein = protein;
     }
 }
 public class MainActivity extends AppCompatActivity {
 
     private Firebase mRef;
     private ArrayList<String> mFood = new ArrayList<>();
-    private ArrayList<Integer> mGm = new ArrayList<>();
-    private ArrayList<String> mUnit = new ArrayList<>();
-    private ArrayList<String> mValue = new ArrayList<>();
+    private ArrayList<String> mKcal = new ArrayList<>();
+    private ArrayList<String> mCarbs = new ArrayList<>();
+    private ArrayList<String> mFats = new ArrayList<>();
+    private ArrayList<String> mProtein = new ArrayList<>();
     private ListView mListView;
 
     @Override
@@ -88,9 +98,10 @@ public class MainActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 NewFood value = dataSnapshot.getValue(NewFood.class);
                 mFood.add(value.getFood());
-                mGm.add(value.getGm());
-                mUnit.add(value.getUnit());
-                mValue.add(value.getValue());
+                mKcal.add(value.getKcal());
+                mCarbs.add(value.getCarbs());
+                mFats.add(value.getFats());
+                mProtein.add(value.getProtein());
                 arrayAdapter.notifyDataSetChanged();
             }
 
@@ -118,15 +129,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String click_food = mFood.get(position);
-                String click_gm = mGm.get(position).toString();
-                String click_unit = mUnit.get(position);
-                String click_value = mValue.get(position);
+                String click_carbs = mCarbs.get(position);
+                String click_fats = mFats.get(position);
+                String click_kcal = mKcal.get(position);
+                String click_protein = mProtein.get(position);
                 Intent intent = new Intent(MainActivity.this, FoodList.class);
                 Bundle extras = new Bundle();
                 extras.putString("EXTRA_FOOD", click_food);
-                extras.putString("EXTRA_GM", click_gm);
-                extras.putString("EXTRA_UNIT", click_unit);
-                extras.putString("EXTRA_VALUE", click_value);
+                extras.putString("EXTRA_CARBS", click_carbs);
+                extras.putString("EXTRA_FATS", click_fats);
+                extras.putString("EXTRA_KCAL", click_kcal);
+                extras.putString("EXTRA_PROTEIN", click_protein);
                 intent.putExtras(extras);
                 startActivity(intent);
             }
