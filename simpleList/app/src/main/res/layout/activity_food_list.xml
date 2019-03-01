@@ -6,46 +6,130 @@
     android:layout_height="match_parent"
     tools:context=".FoodList">
 
-
     <TextView
-        android:id="@+id/textFood"
-        android:layout_width="wrap_content"
+        android:id="@+id/nutFacts"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="Nutritional Facts"
+        android:textAlignment="textStart"
         android:textSize="30dp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textValue"
-        android:layout_width="wrap_content"
+        android:id="@+id/textFood"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginBottom="327dp"
+        android:layout_below="@+id/nutFacts"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
         android:text="TextView"
         android:textSize="24dp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textGm"
+        android:id="@+id/textAmountPer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="151dp"
-        android:text="TextView"
-        android:textSize="24dp"
+        android:layout_below="@+id/textFood"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:text="Amount Per 100g"
+        android:textSize="22dp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textUnit"
+        android:id="@+id/textCalories"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="432dp"
-        android:layout_marginEnd="297dp"
-        android:layout_marginBottom="293dp"
-        android:text="TextView"
-        android:textSize="24dp"
+        android:layout_below="@+id/textAmountPer"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="40dp"
+        android:text="Calories"
+        android:textSize="20dp"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textKcal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textAmountPer"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/textCalories"
+        android:text="TextView"
+        android:textSize="20dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textFatsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textCalories"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:text="Total Fat"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textFats"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textCalories"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/textFatsText"
+        android:text="TextView"
+        android:textSize="20dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textCarbsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textFatsText"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:text="Total Carbohydrate"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textCarbs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textFatsText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/textCarbsText"
+        android:text="TextView"
+        android:textSize="20dp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/textProtText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textCarbsText"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="40dp"
+        android:text="Protein"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textProtein"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textCarbsText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/textProtText"
+        android:text="TextView"
+        android:textSize="20dp"
+        android:textStyle="italic" />
+
 </RelativeLayout>
