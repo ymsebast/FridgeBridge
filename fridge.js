@@ -84,8 +84,7 @@ function main() {
                                     carbs: obj.report.foods[j].nutrients[3].gm + obj.report.foods[j].nutrients[3].unit,
                                     protein: obj.report.foods[j].nutrients[1].gm + obj.report.foods[j].nutrients[1].unit
                                 });
-
-                                break;
+                                process.exit();
                             }
                         }
                     }
