@@ -18,7 +18,7 @@ app.use(express.json());
 // Routes
 // =============================================================
 
-// HTML Routes
+// HomePage Route
 app.get("/", function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
 });
@@ -33,12 +33,8 @@ app.get("/api/results", function (req, res) {
     }
     results = JSON.parse(data);
     //get correct result
-
-    // Configure the response to return a status code of 200 (meaning everything went OK), and to be an HTML document
-    // res.writeHead(200, { "Content-Type": "text/html" });
-    // res.end(results);
+    // return results.json
     return res.json(results);
-    // End the response by sending the client the myHTML string (which gets rendered as an HTML document thanks to the code above)
   
 
 
