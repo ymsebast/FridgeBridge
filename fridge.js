@@ -17,6 +17,9 @@ function main() {
                 return console.log(error2);
             }
             console.log(weight);
+            if(weight == null){
+                console.log("Empty weight array. Check Weight Recognition.");
+            }
             // We will then print the contents of data
             console.log(data);
 
@@ -53,7 +56,9 @@ function main() {
 
                     var obj = JSON.parse(body)
                     // console.log(obj.report.foods[0].name);
-
+                    if(dataArr.length == 0){
+                        console.log("Empty food array. Check Image Recognition.");
+                    }
                     // compare with txt file array
                     for (var i = 0; i < dataArr.length; i++) {
                         var txtfood = dataArr[i].toLowerCase();

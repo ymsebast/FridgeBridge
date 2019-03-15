@@ -6,123 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>FridgeBridge</title>
-    <!-- CSS + Materialize  -->
+    <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+    <link href="./spinner.css" type="text/css" rel="stylesheet" media="screen,projection" />
 
 </head>
 
 <body>
-    <div id="food"></div>
 
+    <!-- Query -->
+    <h3>Input food</h3>
+    <br>
+    <input type="text" id="search">
+    <h3>Input mass</h3>
+    <input type="text" id="mass">
+    <a class="waves-effect waves-light btn" id="submit">Submit</a>
+    <div id="loadingDiv"></div>
     <div id="results"></div>
-    <!-- Materialize Scripts -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- FireBase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/5.8.1/firebase.js"></script>
     <script>
         // Initialize Firebase
         var config = {
-            apiKey: "AIzaSyCBdrmu0Zh7QJ4dl4IV9HCZNCH4y7QP9Lw",
-            authDomain: "test-43928.firebaseapp.com",
-            databaseURL: "https://test-43928.firebaseio.com",
-            projectId: "test-43928",
-            storageBucket: "test-43928.appspot.com",
-            messagingSenderId: "668914477501"
+            apiKey: "AIzaSyBjq3k-YvtrTNBgu3vaYlN5ELGM0uPbzf4",
+            authDomain: "fridgebridge-8561c.firebaseapp.com",
+            databaseURL: "https://fridgebridge-8561c.firebaseio.com",
+            projectId: "fridgebridge-8561c",
+            storageBucket: "fridgebridge-8561c.appspot.com",
+            messagingSenderId: "736680619102"
         };
         firebase.initializeApp(config);
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
+        //loading
+        var $loading = $('#loadingDiv').hide();
+        $(document)
+            .ajaxStart(function () {
+                $loading.show();
+            })
+            .ajaxStop(function () {
+                $loading.hide();
+            });
         var database = firebase.database();
         var foods;
-        var id =0;
-        var food;
-        var queryURL = "https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=JrdeqppR6h6iZFOFYmbUU6ECER95OYP0wl73znKp&fg=0900&nutrients=208&max=1500";
-        var outputs = new Array();  //json outputs
-        var apiOutputs = new Array(); //api outputs
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {   //Gets Nutritional API output
-            $.get("/api/results/", function (data) { //Gets Pi JSON output
-                foods = response.report.foods;
+        $("#submit").on("click", function () {
+            var input = $("#search").val().toLowerCase().trim();
+            var mass = $("#mass").val().trim();
+            if (mass = "") {
+                mass = 100;
+            }
+            var queryURL = "https://api.nal.usda.gov/ndb/nutrients/?format=json&api_key=JrdeqppR6h6iZFOFYmbUU6ECER95OYP0wl73znKp&fg=0900&nutrients=208&max=1500";
+            console.log(input + mass);
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function (response) {
                 console.log(response);
-                // CROSS-REFERENCING ========================================================
-                // for (var i = 0; i < foods.length; i++) {
-                //     var foodname = foods[i].name.toLowerCase();
-                //     apiOutputs.push(foodname);
-                // }
-                // // console.log(apiOutputs);
-                // // console.log(response.report.groups[0].description);
-                // console.log(data);
-                // for (var i = 0; i < data.responses[0].labelAnnotations.length; i++) {
-                //     var resp = data.responses[0].labelAnnotations[i].description.toLowerCase();
-                //     outputs.push(resp);
-                //     console.log("input " + resp);
-                // }
-                // console.log(outputs);
-                // //cross-reference json and api outputs
-                // for(var i=0; i<outputs.length;i++){
-                //     for(var j=0; j<apiOutputs.length;j++){
-                //         // console.log(apiOutputs[j]);
-                //         if (apiOutputs[j].includes(outputs[i]) || apiOutputs[j].includes(outputs[i] + ",")) {
-                //             food = outputs[i];
-                //             console.log(apiOutputs[j] + "=> " + food);
-                //             break;
-                //         }
-                //     }
-                // }
-                // console.log("This : " + food);
-
-                if (data) {
-                    $("#food").text(data.responses[0].labelAnnotations[1].description);
-                    food = data.responses[0].labelAnnotations[1].description.toLowerCase().trim();
-                }
-
+                console.log(response.report.groups[0].description);
+                foods = response.report.foods;
                 $("#results").html("");
                 for (var i = 0; i < foods.length; i++) {
                     var foodname = foods[i].name.toLowerCase();
-                    if (foodname.includes(food) || foodname.includes(food + ",")) {
-                        console.log(foodname);
-                        $("#results").append("<div class='row'> <div class='col s12 m6'> <div class='card'> <span class='card-title'>" + foods[i].name + "</span><p>" + foods[i].nutrients[0].gm + "kcal for 100 g </p> </div> </div> </div>");
-                        // console.log(foods[i].name);
-                        // console.log(foods[i].nutrients[0]);
-                        //save to database
-                        // console.log(results);
-
-                        // Using .on("value", function(snapshot)) syntax will retrieve firebase total data
-                        // This will then store the data inside the variable "snapshot".
-                        // database.ref("Count").on("value", function (snapshot) {
-                        //     id = snapshot.val().total;
-                        //     console.log("ID: " + id)
-
-                        // }, function (errorObject) {
-                        //     console.log("The read failed: " + errorObject.code);
-                        // });
-                        // database.ref("Food-" + id).set({
-                        //     food: foodname,
-                        //     unit: foods[i].nutrients[0].unit,
-                        //     value: foods[i].nutrients[0].value,
-                        //     gm: foods[i].nutrients[0].gm,
-
-                        // });
-                        database.ref("Food" + id).set({
-                            food: foodname,
-                            unit: foods[i].nutrients[0].value +" "+ foods[i].nutrients[0].unit + " per" + foods[i].nutrients[0].gm + " grams"
-
-                        });
-                        id++;
-                        // set new total
-                        // database.ref("Count").set({
-                        //     total: id
-                        // });
+                    if (foodname.includes(input) || foodname.includes(input + ",")) {
+                        $("#results").append("<div class='row'> <div class='col s12 m6'> <div class='card'> <span class='card-title'>" + foods[i].name + " " + mass + "g" + "</span> <a val='" + i + "' id='foods' class='btn-floating halfway-fab waves-effect waves-light red'><i class='material-icons'>local_dining</i></a> <p>" + foods[i].nutrients[0].gm + "kcal for 100 g </p> </div> </div> </div>");
+                        console.log(foods[i].name);
+                        console.log(foods[i].nutrients[0]);
 
 
                     }
                 }
+
             });
+
+        });
+        //when user clicks food item enter to database
+        $(document).on("click", "#foods", function () {
+            // Get the number of the button from its data attribute and hold in a variable called  toDoNumber.
+            var foodID = $(this).attr("val");
+            console.log(foodID);
+            console.log(foods[foodID].name);
+            console.log(foods[foodID].nutrients[0].gm);
+            //store in firebase
+            database.ref().set({
+                food: foods[foodID].name,
+                sugar: foods[foodID].nutrients[0]
+            });
+            console.log("stored " + foods[foodID].name + " in database");
         });
 
     </script>
